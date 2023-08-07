@@ -19,9 +19,11 @@ class Parser:
     def add_default_arguments(self):
         self.parser.add_argument('--config_file', type=str,
                                  help='path of config file')
-        self.parser.add_argument('--samples_per_gpu', type=int,
+        self.parser.add_argument('--samples_per_gpu', required=True, type=int,
                                  help='# samples per gpu')
-        self.parser.add_argument('--gpu_ids', type=parse_list,
+        self.parser.add_argument('--epochs', required=True, type=int,
+                                 help='epochs to train')
+        self.parser.add_argument('--gpu_ids', required=True, type=parse_list,
                                  help='gpu_ids e.g. "(1,3)" -> range(1,3) -> gpu id 1,2 will be used')
         self.parser.add_argument('--device', default='cuda', choices=['cpu', 'cuda'], type=str,
                                  help='"cpu" or "cuda"? (default: "cuda")')
