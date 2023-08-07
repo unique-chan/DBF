@@ -1,12 +1,13 @@
 import argparse
 
 
-def parse_list(input_str):
+def parse_range(input_str):
+    # e.g. input_str: "(2,5)" -> return: range(2,5)
     try:
         parsed_list = eval(input_str)
         if not isinstance(parsed_list, (list, tuple)):
             raise argparse.ArgumentTypeError("Input is neither a list nor a tuple")
-        return parsed_list
+        return range(*parsed_list)
     except Exception as e:
         raise argparse.ArgumentTypeError(f"Error parsing input: {e}")
 
@@ -23,8 +24,10 @@ class Parser:
                                  help='# samples per gpu')
         self.parser.add_argument('--epochs', required=True, type=int,
                                  help='epochs to train')
-        self.parser.add_argument('--gpu_ids', required=True, type=parse_list,
+        self.parser.add_argument('--gpu_ids', required=True, type=parse_range,
                                  help='gpu_ids e.g. "(1,3)" -> range(1,3) -> gpu id 1,2 will be used')
+        self.parser.add_argument('--tag_name', required=True, type=str,
+                                 help='tag name for the current experiments')
         self.parser.add_argument('--device', default='cuda', choices=['cpu', 'cuda'], type=str,
                                  help='"cpu" or "cuda"? (default: "cuda")')
         self.parser.add_argument('--seed', default=0, type=int,
