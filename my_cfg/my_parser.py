@@ -24,7 +24,9 @@ class Parser:
         self.parser.add_argument('--gpu_ids', type=parse_list,
                                  help='gpu_ids e.g. "(1,3)" -> range(1,3) -> gpu id 1,2 will be used')
         self.parser.add_argument('--device', default='cuda', choices=['cpu', 'cuda'], type=str,
-                                 help='"cpu" or "cuda"?')
+                                 help='"cpu" or "cuda"? (default: "cuda")')
+        self.parser.add_argument('--seed', default=0, type=int,
+                                 help='random seed (default: 0)')
 
     def parse_args(self):
         return self.parser.parse_args()
