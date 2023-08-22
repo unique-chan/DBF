@@ -19,7 +19,7 @@ class Parser:
 
     def add_default_arguments(self):
         self.parser.add_argument('--config_file', type=str,
-                                 help='path of config file')
+                                 help='path of config file e.g. mmdetection/configs/yolox/***.py')
         self.parser.add_argument('--samples_per_gpu', required=True, type=int,
                                  help='# samples per gpu')
         self.parser.add_argument('--epochs', required=True, type=int,
