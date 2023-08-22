@@ -25,13 +25,20 @@ class Parser:
         self.parser.add_argument('--epochs', required=True, type=int,
                                  help='epochs to train')
         self.parser.add_argument('--gpu_ids', required=True, type=parse_range,
-                                 help='gpu_ids          ▶️ e.g. "(1,3)" -> range(1,3) -> gpu id 1,2 will be used')
+                                 help='gpu_ids          ▶️ e.g. "(0,3)"'
+                                      '(hint) if "(0,3)" given, it will be interpreted as range(1,3), '
+                                      '       which indicates that 0,1,2 gpus will be used.')
         self.parser.add_argument('--tag_name', required=True, type=str,
                                  help='tag name for the current experiments')
         self.parser.add_argument('--load_from', type=str,
-                                 help='load_from        ▶️ e.g. checkpoints/yolox_***.pth')
+                                 help='load_from        ▶️ e.g. checkpoints/yolox_***.pth'
+                                      '(hint) compared to `resume_from`, this option only loads the model weights and'
+                                      '       the training epoch starts from 0.')
         self.parser.add_argument('--resume_from', type=str,
-                                 help='resume_from      ▶️ e.g. checkpoints/yolox_**epochs_***.pth')
+                                 help='resume_from      ▶️ e.g. checkpoints/yolox_**epochs_***.pth'
+                                      '(hint) compared to `load_from`, this option loads both the model weights and'
+                                      '       optimizer status, and the epoch is also inherited from '
+                                      '       the specified checkpoint.')
         self.parser.add_argument('--device', default='cuda', choices=['cpu', 'cuda'], type=str,
                                  help='"cpu" or "cuda"? (default: "cuda")')
         self.parser.add_argument('--seed', default=0, type=int,
