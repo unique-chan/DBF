@@ -73,7 +73,7 @@ def get_config_amod_v1(parser, verbose=True):
         warmup_ratio=0.001,
         step=[100]
     )
-    cfg.log_config.interval = 1870
+    cfg.log_config.interval = 100
     cfg.log_config.hooks = [dict(type='TextLoggerHook'),
                             dict(type='TensorboardLoggerHook')
     ]
