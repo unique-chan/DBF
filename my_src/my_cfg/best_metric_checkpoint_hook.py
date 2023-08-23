@@ -2,7 +2,8 @@ from mmcv.runner.hooks import HOOKS, Hook
 from mmcv.runner import save_checkpoint
 
 
-# Ref: https://mmdetection.readthedocs.io/en/v2.28.2/tutorials/customize_runtime.html#customize-self-implemented-hooks
+# Ref1: https://mmdetection.readthedocs.io/en/v2.28.2/tutorials/customize_runtime.html#customize-self-implemented-hooks
+# Ref2: https://mmcv.readthedocs.io/en/master/_modules/mmcv/runner/hooks/checkpoint.html
 @HOOKS.register_module(force=True)
 class BestMetricCheckpointHook(Hook):
     def __init__(self, interval=-1, save_optimizer=True, out_dir=None, monitor_metric='mAP', mode='max', **kwargs):
