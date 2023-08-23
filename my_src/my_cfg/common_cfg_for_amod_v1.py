@@ -1,14 +1,6 @@
-from mmcv import Config
-from mmdet.apis import set_random_seed
-
-
-def get_config_amod_v1(parser, verbose=True):
-    set_random_seed(parser.SEED, deterministic=False)
-    cfg = Config.fromfile(parser.CONFIG_FILE)
-
+def get_common_config_amod_v1(cfg):
     cfg.dataset_type = 'AMODv1'
     cfg.data_root = ''
-    cfg.data.samples_per_gpu = parser.SAMPLES_PER_GPU
 
     cfg.data.train.type = cfg.dataset_type
     cfg.data.train.data_root = f'{cfg.data_root}/train'
@@ -50,44 +42,5 @@ def get_config_amod_v1(parser, verbose=True):
     cfg.data.test.ann_file = ''
     cfg.data.test.img_prefix = ''
     cfg.data.test.pipeline = cfg.data.val.pipeline
-
-    cfg.model.roi_head.bbox_head.num_classes = 13
-    # cfg.model.bbox_head.num_classes = 13
-    cfg.load_from = parser.LOAD_FROM
-    cfg.resume_from = parser.RESUME_FROM
-
-    cfg.work_dir = f'/exp-{parser.TAG_NAME}-{0}'
-    cfg.checkpoint_config = dict(
-        type='BestMetricCheckpointHook',
-        monitor_metric='mAP',
-        mode='max',
-        interval=1,
-        save_optimizer=True
-    )
-    cfg.optimizer.lr = 0.01
-    cfg.runner.max_epochs = parser.EPOCHS
-    cfg.lr_config = dict(
-        policy='step',
-        warmup=None,
-        warmup_iters=500,
-        warmup_ratio=0.001,
-        step=[100]
-    )
-    cfg.log_config.interval = 100
-    cfg.log_config.hooks = [dict(type='TextLoggerHook'),
-                            dict(type='TensorboardLoggerHook')
-    ]
-
-    cfg.evaluation.metric = 'mAP'  # 'bbox'
-    cfg.evaluation.save_best = 'mAP'
-    cfg.evaluation.interval = 1
-
-    cfg.gpu_ids = parser.GPU_IDS
-    cfg.device = parser.DEVICE
-
-    cfg.seed = 0
-
-    if verbose:
-        print(f'▶️ {cfg.pretty_text}')
 
     return cfg
