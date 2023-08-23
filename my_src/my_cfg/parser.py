@@ -19,7 +19,8 @@ class Parser:
 
     def add_default_arguments(self):
         self.parser.add_argument('--CONFIG_FILE', required=True, type=str,
-                                 help='config file path ▶️ e.g. mmdetection/configs/yolox/***.py')
+                                 help='config file path ▶️ e.g. my_src/my_cfg/yolox/***.py')
+                                 # help='config file path ▶️ e.g. mmdetection/configs/yolox/***.py')
         self.parser.add_argument('--SAMPLES_PER_GPU', required=True, type=int,
                                  help='number of samples per gpu')
         self.parser.add_argument('--EPOCHS', required=True, type=int,
@@ -28,9 +29,11 @@ class Parser:
                                  help='gpu_ids          ▶️ e.g. "(0,3)"'
                                       '(hint) if "(0,3)" given, it will be interpreted as range(1,3), '
                                       '       which indicates that 0,1,2 gpus will be used.')
-        self.parser.add_argument('--DATASET', required=True, type=str,
-                                 help='dataset type     ▶️ e.g. "amod_v1"'
-                                      '(hint) choose which class file (*.py) to import in my_dataset folder')
+        self.parser.add_argument('--DATA_ROOT', required=True, type=str,
+                                 help='root path of data')
+        # self.parser.add_argument('--DATASET', required=True, type=str,
+        #                          help='dataset type     ▶️ e.g. "amod_v1"'
+        #                               '(hint) choose which class file (*.py) to import in my_dataset folder')
         self.parser.add_argument('--TAG_NAME', required=True, type=str,
                                  help='tag name for the current experiments')
         self.parser.add_argument('--LOAD_FROM', type=str,

@@ -1,7 +1,7 @@
-def get_common_config_amod_v1(cfg):
+def get_data_config(cfg, data_root=''):
     cfg.dataset_type = 'AMODv1'
-    cfg.data_root = ''
-
+    cfg.data_root = data_root
+    # train
     cfg.data.train.type = cfg.dataset_type
     cfg.data.train.data_root = f'{cfg.data_root}/train'
     cfg.data.train.ann_file = ''
@@ -16,7 +16,7 @@ def get_common_config_amod_v1(cfg):
         dict(type='DefaultFormatBundle'),
         dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
     ]
-
+    # val
     cfg.data.val.type = cfg.dataset_type
     cfg.data.val.data_root = f'{cfg.data_root}/val'
     cfg.data.val.ann_file = ''
@@ -36,11 +36,10 @@ def get_common_config_amod_v1(cfg):
                 dict(type='Collect', keys=['img'])
             ])
     ]
-
+    # test
     cfg.data.test.type = cfg.dataset_type
     cfg.data.test.data_root = f'{cfg.data_root}/test'
     cfg.data.test.ann_file = ''
     cfg.data.test.img_prefix = ''
     cfg.data.test.pipeline = cfg.data.val.pipeline
-
     return cfg
