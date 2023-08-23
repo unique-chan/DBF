@@ -13,13 +13,14 @@ def get_config(parse_args, verbose=True):
     cfg.load_from = parse_args.LOAD_FROM
     cfg.resume_from = parse_args.RESUME_FROM
     cfg.work_dir = f'exp-{parse_args.CONFIG_FILE.replace("/", ".").replace(".py", "")}-{parse_args.TAG_NAME}-{0}'
-    cfg.checkpoint_config = dict(
-        type='BestMetricCheckpointHook',
-        monitor_metric='mAP',
-        mode='max',
-        interval=1,
-        save_optimizer=True
-    )
+    cfg.checkpoint_config.interval = -1  # save only when val mAP is best
+    # cfg.checkpoint_config = dict(
+    #     type='BestMetricCheckpointHook',
+    #     monitor_metric='mAP',
+    #     mode='max',
+    #     interval=1,
+    #     save_optimizer=True
+    # )
     cfg.optimizer.lr = 0.01
     cfg.runner.max_epochs = parse_args.EPOCHS
     cfg.lr_config = dict(

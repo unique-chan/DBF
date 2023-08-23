@@ -1,9 +1,6 @@
-import sys
 import importlib
 
 from .parser import *
-from .best_metric_checkpoint_hook import *
-from .common_cfg_for_amod_v1 import *
 
 
 def get_config(parse_args):
