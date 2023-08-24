@@ -1,12 +1,12 @@
 from mmcv import Config
 
-from .common_cfg_for_amod_v1 import get_data_config
+from ._base_cfg_for_amod_v1 import get_base_config
 
 
 def get_config(parse_args, verbose=True):
     PRETRAINED_MODEL_CONFIG = 'mmdetection/configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py'
     cfg = Config.fromfile(PRETRAINED_MODEL_CONFIG)
-    cfg = get_data_config(cfg, parse_args.DATA_ROOT)
+    cfg = get_base_config(cfg, parse_args.DATA_ROOT)
     cfg.data.samples_per_gpu = parse_args.SAMPLES_PER_GPU
     cfg.model.roi_head.bbox_head.num_classes = 13
     # cfg.model.bbox_head.num_classes = 13

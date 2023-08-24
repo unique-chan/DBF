@@ -1,4 +1,4 @@
-def get_data_config(cfg, data_root=''):
+def get_base_config(cfg, data_root=''):
     cfg.dataset_type = 'AMODv1'
     cfg.data_root = data_root
     # train
