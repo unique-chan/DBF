@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from mmdet.datasets import build_dataset
 from mmdet.models import build_detector
 from mmdet.apis import set_random_seed, train_detector
@@ -16,5 +14,5 @@ model = build_detector(cfg.model,
                        test_cfg=cfg.get('test_cfg'))
 model.CLASSES = datasets[0].CLASSES
 
-os.makedirs(f'{cfg.work_dir}_{datetime.now().strftime("%Y%m%d_%H%M%S")}', exist_ok=True)
+os.makedirs(cfg.work_dir, exist_ok=True)
 train_detector(model, datasets, cfg, distributed=False, validate=True)
