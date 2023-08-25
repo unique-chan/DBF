@@ -1,6 +1,8 @@
-from mmdet.datasets import build_dataset
+# from mmdet.datasets import build_dataset -> already imported in my_src/my_trainer/train.py
+# from mmdet.apis import set_random_seed   -> already imported in my_src/my_trainer/train.py
+# from mmdet.apis import train_detector    -> replaced with train_detector() in my_src/my_trainer/train.py
+
 from mmdet.models import build_detector
-from mmdet.apis import set_random_seed, train_detector
 
 from my_src import *
 
@@ -15,4 +17,5 @@ model = build_detector(cfg.model,
 model.CLASSES = datasets[0].CLASSES
 
 os.makedirs(cfg.work_dir, exist_ok=True)
-train_detector(model, datasets, cfg, distributed=False, validate=True)
+runner = train_detector(model, datasets, cfg, ps, distributed=False, validate=True)
+save_log_from_runner(cfg.work_dir, runner)

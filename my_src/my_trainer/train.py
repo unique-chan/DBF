@@ -119,11 +119,11 @@ def auto_scale_lr(cfg, distributed, logger):
 def train_detector(model,
                    dataset,
                    cfg,
+                   parse_args,              # Added by Yechan Kim
                    distributed=False,
                    validate=False,
                    timestamp=None,
                    meta=None):
-
     cfg = compat_cfg(cfg)
     logger = get_root_logger(log_level=cfg.log_level)
 
