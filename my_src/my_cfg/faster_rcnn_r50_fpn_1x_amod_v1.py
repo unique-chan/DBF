@@ -1,6 +1,7 @@
 from mmcv import Config
 
-from ._base_cfg_for_amod_v1 import get_base_data_config, get_base_ckpt_and_gpu_config, get_base_log_config
+from ._base_cfg_common import get_base_ckpt_and_gpu_config, get_base_log_config
+from ._base_cfg_for_amod_v1 import get_base_data_config
 
 
 def get_config(parse_args, verbose=True):
