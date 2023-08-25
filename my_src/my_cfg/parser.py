@@ -20,7 +20,6 @@ class Parser:
     def add_default_arguments(self):
         self.parser.add_argument('--CONFIG_FILE', required=True, type=str,
                                  help='config file path ▶️ e.g. my_src/my_cfg/yolox/***.py')
-                                 # help='config file path ▶️ e.g. mmdetection/configs/yolox/***.py')
         self.parser.add_argument('--SAMPLES_PER_GPU', required=True, type=int,
                                  help='number of samples per gpu')
         self.parser.add_argument('--EPOCHS', required=True, type=int,
@@ -31,11 +30,13 @@ class Parser:
                                       '       which indicates that 0,1,2 gpus will be used.')
         self.parser.add_argument('--DATA_ROOT', required=True, type=str,
                                  help='root path of data')
-        # self.parser.add_argument('--DATASET', required=True, type=str,
-        #                          help='dataset type     ▶️ e.g. "amod_v1"'
-        #                               '(hint) choose which class file (*.py) to import in my_dataset folder')
         self.parser.add_argument('--TAG_NAME', required=True, type=str,
                                  help='tag name for the current experiments')
+        self.parser.add_argument('--DBF_FILE', type=str,
+                                 help='DBF sche. config '
+                                      'file path        ▶️ e.g. "my_src/my_trainer/"')
+        self.parser.add_argument('--DBF_ARGS', type=str,
+                                 help='DBF sche. args   ▶️ e.g. %s' % '{"step_epoch": 10}')
         self.parser.add_argument('--LOAD_FROM', type=str,
                                  help='load_from        ▶️ e.g. checkpoints/yolox_***.pth'
                                       '(hint) compared to `resume_from`, this option only loads the model weights and'
