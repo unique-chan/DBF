@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 def get_base_ckpt_and_gpu_config(cfg, parse_args):
     cfg.data.samples_per_gpu = parse_args.SAMPLES_PER_GPU
     cfg.gpu_ids = parse_args.GPU_IDS

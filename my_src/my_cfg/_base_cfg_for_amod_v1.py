@@ -1,6 +1,3 @@
-from datetime import datetime
-
-
 def get_base_data_config(cfg, parse_args):
     cfg.dataset_type = 'AMODv1'
     cfg.data_root = parse_args.DATA_ROOT
