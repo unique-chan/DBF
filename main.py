@@ -17,6 +17,6 @@ model = build_detector(cfg.model,
 model.CLASSES = datasets[0].CLASSES
 
 os.makedirs(cfg.work_dir, exist_ok=True)
-init_dynamic_backbone_freezing(ps)
-runner = train_detector(model, datasets, cfg, distributed=False, validate=True)
+init_for_dynamic_backbone_freezing(ps)
+runner = train_detector(model, datasets, cfg, distributed=False, validate=True, run_time_measure=True)
 save_log_from_runner(cfg.work_dir, runner)

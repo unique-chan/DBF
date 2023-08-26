@@ -1,8 +1,10 @@
 # Original: mmdet.apis.train_detector (usage e.g. from mmdet.apis import train_detector)
 # Modified by Yechan Kim
-
+import datetime
 import os
 import random
+import time
+import datetime
 
 import numpy as np
 import torch
@@ -122,7 +124,8 @@ def train_detector(model,
                    distributed=False,
                    validate=False,
                    timestamp=None,
-                   meta=None):
+                   meta=None,
+                   run_time_measure=False):         # Added by Yechan Kim
     cfg = compat_cfg(cfg)
     logger = get_root_logger(log_level=cfg.log_level)
 
@@ -245,5 +248,14 @@ def train_detector(model,
         runner.resume(cfg.resume_from)
     elif cfg.load_from:
         runner.load_checkpoint(cfg.load_from)
-    runner.run(data_loaders, cfg.workflow)
+
+    if run_time_measure:                    # Added by Yechan Kim ->
+        start = time.time()
+        runner.run(data_loaders, cfg.workflow)
+        end = time.time()
+        run_time = end - start
+        runner.meta['run_time'] = str(datetime.timedelta(seconds=run_time))
+        print(f'🕒 [Run time] {str(datetime.timedelta(seconds=run_time))}')
+    else:
+        runner.run(data_loaders, cfg.workflow)
     return runner
