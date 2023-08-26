@@ -119,7 +119,6 @@ def auto_scale_lr(cfg, distributed, logger):
 def train_detector(model,
                    dataset,
                    cfg,
-                   parse_args,              # Added by Yechan Kim
                    distributed=False,
                    validate=False,
                    timestamp=None,
@@ -130,8 +129,9 @@ def train_detector(model,
     # prepare data loaders
     dataset = dataset if isinstance(dataset, (list, tuple)) else [dataset]
 
-    runner_type = 'EpochBasedRunner' if 'runner' not in cfg else cfg.runner[
-        'type']
+    # runner_type = 'EpochBasedRunner' if 'runner' not in cfg else cfg.runner['type']
+    runner_type = 'EpochBasedRunnerForDBF'  # Added by Yechan Kim
+    cfg.runner['type'] = runner_type        # Added by Yechan Kim
 
     train_dataloader_default_args = dict(
         samples_per_gpu=2,
