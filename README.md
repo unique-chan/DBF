@@ -22,7 +22,7 @@
 ![Overview_Figure](./my_src/Overview_DBF.png)
   - Specifically, this work implements and utilizes **Freezing Scheduler** to dynamically control the update of backbone features during training.
 
-### Preliminaries
+### Preliminaries:
 - Install all necessary packages listed in the `requirements.txt`. 
 - Modify your base detector code as follows:
   - Declare an attribute named `bool_freeze_backbone` (boolean variable);
