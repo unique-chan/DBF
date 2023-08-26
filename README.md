@@ -22,5 +22,32 @@
 ![Overview_Figure](./my_src/Overview_DBF.png)
   - Specifically, this work implements and utilizes **Freezing Scheduler** to dynamically control the update of backbone features during training.
 
+### Preliminaries
+- Install all necessary packages listed in the `requirements.txt`. 
+- Modify your base detector code as follows:
+  - Declare an attribute named `bool_freeze_backbone` (boolean variable)
+  - Modify `extract_feat()` to be dynamically locked / unlocked by `bool_freeze_backbone` 
+~~~
+# example: mmdetection 2.x ➡️ mmdet/models/detectors/single_stage.py
+
+class SingleStageDetector(...):
+
+  def __init__(...):
+    self.bool_freeze_backbone = False
+    ...
+  
+  def extract_feat(...):
+    x = self.backbone(img)
+    if self.with_neck:
+      if self.bool_freeze_backbone:  x = self.neck(tuple([_.detach() for _ in x]))
+      else:                          x = self.neck(x)
+    else:
+      if self.bool_freeze_backbone:  x = x.detach()
+    return x
+  
+  ...
+~~~
+- For experiments on your own dataset and detection model, prepare your own configuration file in `my_src/my_cfg`. (See `README.md` in `my_src/my_cfg` for details.)
+
 ### Announcement:
 - Code under construction
