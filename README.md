@@ -17,8 +17,10 @@
 ### This repo includes:
 - Official implementation of our proposed approach
 
-### Preview:
-- Coming soon
+### Overview:
+- This work presents a training strategy coined `Dynamic Backbone Freezing` that aims to achieve two distinct goals in remote-sensing object detection: **resource-saving** and **robust prediction**.
+![Overview_Figure](./my_src/Overview_DBF.png)
+  - Specifically, this work implements and utilizes **Freezing Scheduler** to dynamically control the update of backbone features during training.
 
 ### Announcement:
 - Code under construction
