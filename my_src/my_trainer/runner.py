@@ -149,7 +149,7 @@ class EpochBasedRunnerForDBF(BaseRunner):
 
     def save_checkpoint(self,
                         out_dir: str,
-                        filename_tmpl: str,
+                        filename_tmpl: str = 'epoch_{}.pth',
                         save_optimizer: bool = True,
                         meta: Optional[Dict] = None,
                         create_symlink: bool = True) -> None:
