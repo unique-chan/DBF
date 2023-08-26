@@ -15,9 +15,11 @@ def save_log_from_runner(work_dir, runner):
     _object_to_txt(runner.meta, f'{work_dir}/runner.meta.txt')
     _object_to_txt(runner.outputs, f'{work_dir}/runner.outputs.txt')
     _object_to_txt('', f'{work_dir}/best_mAP_val_{runner.meta["hook_msgs"]["best_score"]}')
+    if runner.meta.get('run_time'):
+        _object_to_txt(runner.meta, f'{work_dir}/run_time{runner.meta.get("run_time")}')
 
 
-def init_dynamic_backbone_freezing(parse_args):
+def init_for_dynamic_backbone_freezing(parse_args):
     '''
     Preliminary: Modify your detection model (or its superclass) as follows ->
         1) declare an attribute named `bool_freeze_backbone` (boolean variable)
