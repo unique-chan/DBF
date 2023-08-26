@@ -25,8 +25,8 @@
 ### Preliminaries
 - Install all necessary packages listed in the `requirements.txt`. 
 - Modify your base detector code as follows:
-  - Declare an attribute named `bool_freeze_backbone` (boolean variable)
-  - Modify `extract_feat()` to be dynamically locked / unlocked by `bool_freeze_backbone` 
+  - Declare an attribute named `bool_freeze_backbone` (boolean variable);
+  - Modify `extract_feat()` to be dynamically locked / unlocked by `bool_freeze_backbone`. 
 ~~~
 # example: mmdetection 2.x ➡️ mmdet/models/detectors/single_stage.py
 
@@ -50,4 +50,4 @@ class SingleStageDetector(...):
 - For experiments on your own dataset and detection model, prepare your own configuration file in `my_src/my_cfg`. (See `README.md` in `my_src/my_cfg` for details.)
 
 ### Announcement:
-- Code under construction
+- Code under construction.
