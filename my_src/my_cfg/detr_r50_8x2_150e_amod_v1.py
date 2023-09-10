@@ -12,13 +12,13 @@ def get_config(parse_args, verbose=True):
     cfg = get_base_log_config(cfg)
     # cfg.model.roi_head.bbox_head.num_classes = 13
     cfg.model.bbox_head.num_classes = 13
-    cfg.optimizer.lr = 0.01
+    cfg.optimizer.lr = 0.001
     cfg.runner.max_epochs = parse_args.EPOCHS
     cfg.lr_config = dict(
         policy='step',
         warmup=None,
         warmup_iters=500,
-        warmup_ratio=0.001,
+        warmup_ratio=cfg.optimizer.lr,
         step=[100]
     )
     if verbose:
