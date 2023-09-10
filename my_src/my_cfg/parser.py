@@ -1,4 +1,5 @@
 import argparse
+import platform
 
 
 def parse_range(input_str):
@@ -14,18 +15,21 @@ def parse_range(input_str):
 
 class Parser:
     def __init__(self):
+        if platform.system() == 'Windows':
+            print('▶ For Windows users, be sure to surround the string with double quotes ("").'
+                  '  e.g. --TAG_NAME %s (X) -> TAG_NAME %s (O) ' % ("'xxx'", '"xxx"'))
         self.parser = argparse.ArgumentParser(description='github.com/unique-chan/DBF')
         self.add_default_arguments()
 
     def add_default_arguments(self):
         self.parser.add_argument('--CONFIG_FILE', required=True, type=str,
-                                 help='config file path ▶️ e.g. my_src/my_cfg/yolox/***.py')
+                                 help='config file path ▶ e.g. my_src/my_cfg/yolox/***.py')
         self.parser.add_argument('--SAMPLES_PER_GPU', required=True, type=int,
                                  help='number of samples per gpu')
         self.parser.add_argument('--EPOCHS', required=True, type=int,
                                  help='epochs to train')
         self.parser.add_argument('--GPU_IDS', required=True, type=parse_range,
-                                 help='gpu_ids          ▶️ e.g. "(0,3)"'
+                                 help='gpu_ids          ▶ e.g. "(0,3)"'
                                       '(hint) if "(0,3)" given, it will be interpreted as range(1,3), '
                                       '       which indicates that 0,1,2 gpus will be used.')
         self.parser.add_argument('--DATA_ROOT', required=True, type=str,
@@ -34,15 +38,15 @@ class Parser:
                                  help='tag name for the current experiments')
         self.parser.add_argument('--DBF_FILE', type=str,
                                  help='DBF sche. config '
-                                      'file path        ▶️ e.g. "my_src/my_trainer/"')
+                                      'file path        ▶ e.g. "my_src/my_trainer/"')
         self.parser.add_argument('--DBF_ARGS', type=str,
-                                 help='DBF sche. args   ▶️ e.g. %s' % '{"step_epoch": 10}')
+                                 help='DBF sche. args   ▶ e.g. %s' % '{"step_epoch": 10}')
         self.parser.add_argument('--LOAD_FROM', type=str,
-                                 help='load_from        ▶️ e.g. checkpoints/yolox_***.pth'
+                                 help='load_from        ▶ e.g. checkpoints/yolox_***.pth'
                                       '(hint) compared to `resume_from`, this option only loads the model weights and'
                                       '       the training epoch starts from 0.')
         self.parser.add_argument('--RESUME_FROM', type=str,
-                                 help='resume_from      ▶️ e.g. checkpoints/yolox_**epochs_***.pth'
+                                 help='resume_from      ▶ e.g. checkpoints/yolox_**epochs_***.pth'
                                       '(hint) compared to `load_from`, this option loads both the model weights and'
                                       '       optimizer status, and the epoch is also inherited from '
                                       '       the specified checkpoint.')
