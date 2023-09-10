@@ -42,7 +42,9 @@ class SingleStageDetector(...):
       if self.bool_freeze_backbone:  x = self.neck(tuple([_.detach() for _ in x]))
       else:                          x = self.neck(x)
     else:
-      if self.bool_freeze_backbone:  x = x.detach()
+      if self.bool_freeze_backbone:  
+          if type(x) is tuple:       x = tuple([_.detach() for _ in x])
+          else:                      x = x.detach()
     return x
   
   ...
