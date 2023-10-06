@@ -9,15 +9,11 @@
 # (mmdet==2.28.2)
 # cd mmdetection
 # pip install -v -e . # -v: verbose # -e: editable mode
+# git clone https://github.com/open-mmlab/mmrotate
+# (mmrotate==0.3.4)
+# cd mmrotate
+# pip install -v -e .
 # pip install tensorboard
 ###################################################### OPTIONAL ########################################################
 # pip install jupyter notebook
 
-
-# [Environment] Core i9-13900KF, Geforce RTX 4090, cuda11.7, windows 11, nvidia-driver-528.24
-# [Date] 10 September 2023
-# As Visual C++ 14.0 or greater is required,
-#   1) download and install https://visualstudio.microsoft.com/visual-cpp-build-tools/
-#   2) run Visual Studio Installer
-#   3) install Visual Studio Community with checking `Desktop development with C++`
-# Remaining things: same as in ubuntu!!!
