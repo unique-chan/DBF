@@ -27,7 +27,7 @@
 - Modify your base detector code as follows:
   - Declare an attribute named `bool_freeze_backbone` (boolean variable);
   - Modify `extract_feat()` to be dynamically locked / unlocked by `bool_freeze_backbone`. 
-- Or you can easily run this code instead: `python my_src/preliminaries/overwrite_base_models.py`
+- Or you can easily run this code instead (only once): `python my_src/preliminaries/overwrite_base_models.py`
 ~~~
 # example: mmdetection 2.x ➡️ mmdet/models/detectors/single_stage.py
 
