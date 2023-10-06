@@ -2,7 +2,9 @@ import os
 from shutil import copy2
 from time import sleep
 
-root = '../../' + 'mmdetection/mmdet/models/detectors'
+# Run this code in the root directory: i.e. '/your_folders/.../DBF'
+
+root = 'mmdetection/mmdet/models/detectors'
 candidates = [f'single_stage.py', f'two_stage.py']
 for candidate in candidates:
     if not os.path.exists(f'{root}/{candidate[:-3]} (original).py'):
