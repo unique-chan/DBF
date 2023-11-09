@@ -1,59 +1,85 @@
 import argparse
-import platform
 
-
-def parse_range(input_str):
-    # e.g. input_str: "(2,5)" -> return: range(2,5)
-    try:
-        parsed_list = eval(input_str)
-        if not isinstance(parsed_list, (list, tuple)):
-            raise argparse.ArgumentTypeError("Input is neither a list nor a tuple")
-        return range(*parsed_list)
-    except Exception as e:
-        raise argparse.ArgumentTypeError(f"Error parsing input: {e}")
+from mmcv import DictAction
 
 
 class Parser:
-    def __init__(self):
-        if platform.system() == 'Windows':
-            print('▶ For Windows users, be sure to surround the string with double quotes ("").'
-                  '  e.g. --TAG_NAME %s (X) -> TAG_NAME %s (O) ' % ("'xxx'", '"xxx"'))
-        self.parser = argparse.ArgumentParser(description='github.com/unique-chan/DBF')
-        self.add_default_arguments()
+    def __init__(self, mode):
+        assert mode in ['train', 'eval'], f'Unsupported mode: {mode} for Parser'
+        self.parser = argparse.ArgumentParser()
+        self.add_common_arguments()
+        if mode == 'train':
+            self.add_train_arguments()
+            self.add_DBF_arguments()        # for dynamic backbone freezing
+        elif mode == 'eval':
+            self.add_eval_arguments()
 
-    def add_default_arguments(self):
-        self.parser.add_argument('--CONFIG_FILE', required=True, type=str,
-                                 help='config file path ▶ e.g. my_src/my_cfg/yolox/***.py')
-        self.parser.add_argument('--SAMPLES_PER_GPU', required=True, type=int,
-                                 help='number of samples per gpu')
-        self.parser.add_argument('--EPOCHS', required=True, type=int,
-                                 help='epochs to train')
-        self.parser.add_argument('--GPU_IDS', required=True, type=parse_range,
-                                 help='gpu_ids          ▶ e.g. "(0,3)"'
-                                      '(hint) if "(0,3)" given, it will be interpreted as range(1,3), '
-                                      '       which indicates that 0,1,2 gpus will be used.')
-        self.parser.add_argument('--DATA_ROOT', required=True, type=str,
-                                 help='root path of data')
-        self.parser.add_argument('--TAG_NAME', required=True, type=str,
-                                 help='tag name for the current experiments')
-        self.parser.add_argument('--DBF_FILE', type=str,
-                                 help='DBF sche. config '
-                                      'file path        ▶ e.g. "my_src/my_trainer/"')
-        self.parser.add_argument('--DBF_ARGS', type=str,
-                                 help='DBF sche. args   ▶ e.g. %s' % '{"step_epoch": 10}')
-        self.parser.add_argument('--LOAD_FROM', type=str,
-                                 help='load_from        ▶ e.g. checkpoints/yolox_***.pth'
-                                      '(hint) compared to `resume_from`, this option only loads the model weights and'
-                                      '       the training epoch starts from 0.')
-        self.parser.add_argument('--RESUME_FROM', type=str,
-                                 help='resume_from      ▶ e.g. checkpoints/yolox_**epochs_***.pth'
-                                      '(hint) compared to `load_from`, this option loads both the model weights and'
-                                      '       optimizer status, and the epoch is also inherited from '
-                                      '       the specified checkpoint.')
-        self.parser.add_argument('--DEVICE', default='cuda', choices=['cpu', 'cuda'], type=str,
-                                 help='"cpu" or "cuda"? (default: "cuda")')
-        self.parser.add_argument('--SEED', default=0, type=int,
-                                 help='random seed (default: 0)')
+    def add_common_arguments(self):
+        self.parser.add_argument('--model-config',
+                                 help='model config file path, '
+                                      'e.g. "mmdetection/configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py"')
+        self.parser.add_argument('--data-config',
+                                 help='user-customized data-relevant config file path')
+        self.parser.add_argument('--data-root', default='.', help='data root path')
+        self.parser.add_argument('--work-dir', help='dir to save file containing eval metrics')
+        self.parser.add_argument('--device', default='cuda',
+                                 type=str, choices=['cpu', 'cuda'], help='"cpu" or "cuda"? (default: "cuda")')
+        self.parser.add_argument('--gpu-id', type=int, default=0, nargs='+', help='id(s) of gpu(s) to use')
+
+    def add_train_arguments(self):
+        self.parser.add_argument('--train-config',
+                                 help='user-customized training-relevant config file path')
+        self.parser.add_argument('--epochs', type=int, help='training_epochs')
+        self.parser.add_argument('--load-from', help='checkpoint file (weights only)')
+        self.parser.add_argument('--resume-from', help='checkpoint file to resume from')
+        self.parser.add_argument('--no-validate', action='store_true',
+                                 help='whether not to evaluate the checkpoint during training')
+        self.parser.add_argument('--seed', default=0, type=int, help='random seed (default: 0)')
+        self.parser.add_argument('--deterministic', action='store_true',
+                                 help='whether to set deterministic options for CUDNN backend')
+        self.parser.add_argument('--init_weights', action='store_true',
+                                 help='use init weights')
+        self.parser.add_argument('--tag', help='experiment tag')
+
+    def add_eval_arguments(self):
+        self.parser.add_argument('--checkpoint', help='checkpoint file')
+        self.parser.add_argument('--out', help='output result file in pickle format')
+        self.parser.add_argument('--fuse-conv-bn', action='store_true',
+                                 help='whether to fuse conv and bn, this will slightly increase the inference speed')
+        self.parser.add_argument('--eval', type=str, nargs='+',
+                                 help='eval metrics e.g. "bbox", "segm", "proposal" for COCO, and '
+                                      '"mAP", "recall" for PASCAL VOC')
+        self.parser.add_argument('--show', action='store_true', help='show results')
+        self.parser.add_argument('--show-dir', help='dir where painted images will be saved')
+        self.parser.add_argument('--show-score-thr', type=float, default=0.3,
+                                 help='score threshold (default: 0.3)')
+        self.parser.add_argument('--eval-options', nargs='+',
+                                 action=DictAction,
+                                 help='custom options for evaluation, the key-value pair in xxx=yyy '
+                                      'format will be kwargs for dataset.evaluate() function')
+        self.parser.add_argument('--format-only', action='store_true',
+                                 help='Format the output results without perform evaluation. It is '
+                                      'useful when you want to format the result to a specific format and '
+                                      'submit it to the test server '
+                                      '(check implemented format_results() for your mmdet.datasets.custom type)')
+
+    def add_DBF_arguments(self):
+        self.parser.add_argument('--dbf', help='file for dynamic backbone freezing')
+        self.parser.add_argument('--dbf-options',
+                                 help='scheduling options for dynamic backbone freezing '
+                                      '▶ e.g. %s' % '{"step_epoch": 10}')
 
     def parse_args(self):
         return self.parser.parse_args()
+
+
+# # zzz.py
+# import xxx
+#
+# # cfg 변수를 만들고 xxx.py의 모든 변수를 자동으로 등록
+# cfg = {}
+# for var_name in dir(xxx):
+#     if not var_name.startswith("__"):  # 필요 없는 변수(이중 밑줄로 시작하는)를 걸러냅니다.
+#         setattr(cfg, var_name, getattr(xxx, var_name))
+#
+# # 이제 cfg.a 또는 cfg.b를 사용할 수 있습니다.

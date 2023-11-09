@@ -19,7 +19,7 @@ def save_log_from_runner(work_dir, runner):
         _object_to_txt(runner.meta, f'{work_dir}/runtime_{runner.meta.get("run_time")}')
 
 
-def init_for_dynamic_backbone_freezing(parse_args):
+def init_for_dynamic_backbone_freezing(args):
     '''
     Preliminary: Modify your detection model (or its superclass) as follows ->
         1) declare an attribute named `bool_freeze_backbone` (boolean variable)
@@ -39,10 +39,10 @@ def init_for_dynamic_backbone_freezing(parse_args):
              return x
              ...
     '''
-    if parse_args.DBF_FILE is not None:
-        fn_for_dynamic_backbone_freezing = (importlib.import_module(parse_args.DBF_FILE.
+    if args.dbf is not None:
+        fn_for_dynamic_backbone_freezing = (importlib.import_module(args.dbf.
                                                                     replace("/", ".").replace(".py", "")).
                                             dynamic_backbone_freezing)
-        param_for_dynamic_backbone_freezing = eval(parse_args.DBF_ARGS)
+        param_for_dynamic_backbone_freezing = eval(args.dbf_options)
         EpochBasedRunnerForDBF.fn_for_dynamic_backbone_freezing = fn_for_dynamic_backbone_freezing
         EpochBasedRunnerForDBF.param_for_dynamic_backbone_freezing = param_for_dynamic_backbone_freezing

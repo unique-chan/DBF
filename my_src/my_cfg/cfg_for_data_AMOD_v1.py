@@ -1,6 +1,6 @@
-def get_base_data_config(cfg, parse_args):
+def get_config(cfg, args):
     cfg.dataset_type = 'AMODv1'
-    cfg.data_root = parse_args.DATA_ROOT
+    cfg.data_root = args.data_root
     # train
     cfg.data.train.type = cfg.dataset_type
     cfg.data.train.data_root = f'{cfg.data_root}/train'
@@ -42,4 +42,18 @@ def get_base_data_config(cfg, parse_args):
     cfg.data.test.ann_file = ''
     cfg.data.test.img_prefix = ''
     cfg.data.test.pipeline = cfg.data.val.pipeline
+    # set number of classes for head
+    try:
+        cfg.model.bbox_head.num_classes = 13
+    except:
+        pass
+    try:
+        cfg.model.roi_head.bbox_head.num_classes = 13
+    except:
+        pass
+    try:
+        for _ in cfg.model.roi_head.bbox_head:
+            _['num_classes'] = 13
+    except:
+        pass
     return cfg
