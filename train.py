@@ -19,8 +19,7 @@ if args.init_weights:
     model.init_weights()
 model.CLASSES = datasets[0].CLASSES
 
-os.makedirs(cfg.work_dir, exist_ok=True)
-cfg.dump(f'{cfg.work_dir}/cfg.py')
+init_workdir_and_cfg_dump(cfg, args)
 init_for_dynamic_backbone_freezing(args)
 runner = train_detector(model, datasets, cfg, distributed=False, validate=(not args.no_validate), run_time_measure=True)
 save_log_from_runner(cfg.work_dir, runner)
