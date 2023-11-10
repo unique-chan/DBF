@@ -13,7 +13,7 @@ def get_config(cfg_file, cfg, args):
     return current_module.get_config(cfg, args)
 
 
-def get_all_configs(args, mode='eval', verbose=True):
+def get_all_configs(args, mode='train', verbose=True):
     cfg = Config.fromfile(args.model_config)
     cfg = get_config(args.data_config, cfg, args)
 
@@ -26,9 +26,6 @@ def get_all_configs(args, mode='eval', verbose=True):
         cfg.runner.max_epochs = args.epochs
         cfg.work_dir = get_work_dir(args)
         cfg = get_config(args.train_config, cfg, args)
-    else:
-        pass
-        # mmdetection -> checkpoint?
     if verbose:
         print(f'▶️ {cfg.pretty_text}')
     return cfg
