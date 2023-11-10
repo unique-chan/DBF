@@ -74,6 +74,8 @@ python mmdetection/tools/test.py "work_dirs/exp-yechankim/cfg.py" \
                                  "work_dirs/exp-yechankim/best_map.pth" \
                                  --out "out.pkl"
 ~~~
+  - Here, we assume that "work_dirs/exp-yechankim/cfg.py" is a dumped config file after running `train.py` in the working directory.
+  - "work_dirs/exp-yechankim/best_map.pth" is a model weight file after training.
 
 ### Announcement:
 - Code under construction.
