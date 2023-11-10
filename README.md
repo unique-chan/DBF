@@ -53,7 +53,7 @@ class SingleStageDetector(...):
 ~~~
 - For experiments on your own dataset and detection model, prepare your own configuration file in `my_src/my_cfg`. (See `README.md` in `my_src/my_cfg` for details.)
 
-### Training via our strategy
+### Training via our strategy:
 - If you want to freeze the backbone only at every 20 epoch during training with 100 epochs:
 ~~~
 python train.py --model-config "mmdetection/configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py" \
@@ -67,7 +67,7 @@ python train.py --model-config "mmdetection/configs/faster_rcnn/faster_rcnn_r50_
   - Please check given examples for `data-config` and `train-config` for your experiments.
   - Also, see `my_src/my_cfg/parser.py` for detailed information about parsing arguments.
 
-### Test
+### Test:
 - We recommend you to use the default python file for test provided by open-mmlab as follows:
 ~~~
 python mmdetection/tools/test.py "work_dirs/exp-yechankim/cfg.py" \
