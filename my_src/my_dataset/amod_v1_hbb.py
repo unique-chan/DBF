@@ -8,7 +8,7 @@ from mmdet.datasets.custom import CustomDataset
 
 
 @DATASETS.register_module(force=True)
-class AMODv1(CustomDataset):
+class AMODv1HBB(CustomDataset):
     CLASSES = (
         'Armored', 'Artillery', 'Boat', 'Helicopter', 'LCU', 'MLRS', 'Plane', 'RADAR', 'SAM',
         'Self-propelled Artillery', 'Support', 'TEL', 'Tank'
