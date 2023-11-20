@@ -6,18 +6,17 @@ import datetime
 
 
 from mmcv.runner import (DistSamplerSeedHook, EpochBasedRunner,
-                         Fp16OptimizerHook, OptimizerHook, build_runner)
-
-from mmdet.core import DistEvalHook, EvalHook, build_optimizer
+                         Fp16OptimizerHook, OptimizerHook, build_runner, build_optimizer)
+from mmdet.core import DistEvalHook, EvalHook
 from mmdet.datasets import (build_dataloader, build_dataset,
                             replace_ImageToTensor)
-from mmdet.utils import (build_ddp, build_dp, compat_cfg,
-                         find_latest_checkpoint, get_root_logger)
+from mmrotate.utils import (build_ddp, build_dp, compat_cfg,
+                            find_latest_checkpoint, get_root_logger)
 
 from .train_for_common import auto_scale_lr
 
 
-def train_detector_for_hbb(model,
+def train_detector_for_obb(model,
                            dataset,
                            cfg,
                            distributed=False,

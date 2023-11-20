@@ -1,6 +1,8 @@
 import importlib
 
-from .train import *
+from .train_for_common import *
+from .train_for_hbb import *
+from .train_for_obb import *
 from .runner import *
 
 
