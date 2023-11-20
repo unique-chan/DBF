@@ -25,7 +25,9 @@ class Parser:
         self.parser.add_argument('--gpu-id', type=int, default=0, nargs='+', help='id(s) of gpu(s) to use')
         self.parser.add_argument('--dataset-class',
                                  help='custom dataset class path for registration, '
-                                      'e.g. "my_src/my_dataset/amod_v1.py"')
+                                      'e.g. "my_src/my_dataset/amod_v1_hbb.py"')
+        self.parser.add_argument('--hbb', action='store_true')
+        self.parser.add_argument('--obb', action='store_true')
 
     def add_train_arguments(self):
         self.parser.add_argument('--train-config',
@@ -49,4 +51,6 @@ class Parser:
                                       '▶ e.g. %s' % '{"step_epoch": 10}')
 
     def parse_args(self):
-        return self.parser.parse_args()
+        parsed_args = self.parser.parse_args()
+        assert parsed_args.hbb != parsed_args.obb       # only one of them is True
+        return parsed_args
