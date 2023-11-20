@@ -1,5 +1,8 @@
 def get_config(cfg, args):
-    cfg.dataset_type = 'AMODv1'
+    num_classes = len(('Armored', 'Artillery', 'Boat', 'Helicopter', 'LCU', 'MLRS', 'Plane', 'RADAR', 'SAM',
+                       'Self-propelled Artillery', 'Support', 'TEL', 'Tank'))
+
+    cfg.dataset_type = 'AMODv1HBB'
     cfg.data_root = args.data_root
     # train
     cfg.data.train.type = cfg.dataset_type
@@ -44,16 +47,16 @@ def get_config(cfg, args):
     cfg.data.test.pipeline = cfg.data.val.pipeline
     # set number of classes for head
     try:
-        cfg.model.bbox_head.num_classes = 13
+        cfg.model.bbox_head.num_classes = num_classes
     except:
         pass
     try:
-        cfg.model.roi_head.bbox_head.num_classes = 13
+        cfg.model.roi_head.bbox_head.num_classes = num_classes
     except:
         pass
     try:
         for _ in cfg.model.roi_head.bbox_head:
-            _['num_classes'] = 13
+            _['num_classes'] = num_classes
     except:
         pass
     return cfg
