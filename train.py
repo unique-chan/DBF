@@ -2,8 +2,6 @@
 # from mmdet.apis import set_random_seed   -> already imported in my_src/my_trainer/train_for_hbb.py
 # from mmdet.apis import train_detector    -> replaced with train_detector() in my_src/my_trainer/train_for_hbb.py
 
-# import copy
-
 from mmdet.models import build_detector as bd_hbb
 from mmrotate.models import build_detector as bd_obb
 
