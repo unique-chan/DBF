@@ -110,7 +110,7 @@ def train_detector_for_hbb(model,
     # register eval hooks
     if validate:
         val_dataloader_default_args = dict(
-            samples_per_gpu=1,
+            samples_per_gpu=1 if 'samples_per_gpu' not in dir(cfg) else cfg.samples_per_gpu,
             workers_per_gpu=2,
             dist=distributed,
             shuffle=False,
