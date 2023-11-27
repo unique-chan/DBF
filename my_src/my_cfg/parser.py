@@ -23,6 +23,7 @@ class Parser:
         self.parser.add_argument('--device', default='cuda',
                                  type=str, choices=['cpu', 'cuda'], help='"cpu" or "cuda"? (default: "cuda")')
         self.parser.add_argument('--gpu-id', type=int, default=0, nargs='+', help='id(s) of gpu(s) to use')
+        self.parser.add_argument('--batch-size', type=int, help='batch size')
         self.parser.add_argument('--dataset-class',
                                  help='custom dataset class path for registration, '
                                       'e.g. "my_src/my_dataset/amod_v1_hbb.py"')
