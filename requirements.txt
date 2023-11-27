@@ -9,10 +9,12 @@
 # (mmdet==2.28.2)
 # cd mmdetection
 # pip install -v -e . # -v: verbose # -e: editable mode
+# cd ..
 # git clone https://github.com/open-mmlab/mmrotate
 # (mmrotate==0.3.4)
 # cd mmrotate
 # pip install -v -e .
+# cd ..
 # pip install tensorboard
 # pip install shapely
 ###################################################### OPTIONAL ########################################################
