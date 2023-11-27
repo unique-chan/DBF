@@ -19,3 +19,7 @@
 # pip install shapely
 ###################################################### OPTIONAL ########################################################
 # pip install jupyter notebook
+
+# if TypeError: FormatCode() got an unexpected keyword argument 'verify',
+# ref: https://github.com/open-mmlab/mmdetection/issues/10962
+# sol: pip install yapf==0.40.1
