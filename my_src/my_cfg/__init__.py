@@ -41,4 +41,4 @@ def get_work_dir(args):
         _[-2] = _[-2].replace('"', '').replace("'", '').replace(':', '')
     if args.tag:
         _.insert(-1, args.tag)
-    return f"work_dirs/{'-'.join(_)}"
+    return f"{args.work_dir}/{'-'.join(_)}"
