@@ -5,6 +5,7 @@
 # conda install pytorch==2.0.1 torchvision==0.15.2 pytorch-cuda=11.7 -c pytorch -c nvidia
 # pip install -U openmim==0.3.9
 # mim install mmcv-full==1.7.1
+# (if trouble happens, mim install mmcv-full -> do not specify version...)
 # git clone -b 2.x https://github.com/open-mmlab/mmdetection
 # (mmdet==2.28.2)
 # cd mmdetection
@@ -23,3 +24,5 @@
 # if TypeError: FormatCode() got an unexpected keyword argument 'verify',
 # ref: https://github.com/open-mmlab/mmdetection/issues/10962
 # sol: pip install yapf==0.40.1
+
+# pip install seaborn
