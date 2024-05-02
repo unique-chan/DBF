@@ -17,6 +17,7 @@
 # pip install -v -e .
 # cd ..
 # pip install tensorboard
+# pip install protobuf==4.25.3
 # pip install shapely
 ###################################################### OPTIONAL ########################################################
 # pip install jupyter notebook
@@ -24,5 +25,9 @@
 # if TypeError: FormatCode() got an unexpected keyword argument 'verify',
 # ref: https://github.com/open-mmlab/mmdetection/issues/10962
 # sol: pip install yapf==0.40.1
+
+# if TypeError: MessageToJson() got an unexpected keyword argument 'including_default_value_fields'
+# while running Tensorboard
+# sol: pip install protobuf==4.25.3
 
 # pip install seaborn
