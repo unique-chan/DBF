@@ -1,5 +1,5 @@
 _base_ = [
-    # '../_base_/datasets/dotav1.py',
+    '../../mmrotate/configs/_base_/datasets/dotav1.py',
     '../../mmrotate/configs/_base_/schedules/schedule_1x.py',
     '../../mmrotate/configs/_base_/default_runtime.py'
 ]
@@ -27,7 +27,7 @@ model = dict(
         num_outs=5),
     bbox_head=dict(
         type='RotatedRetinaHead',
-        num_classes=20,
+        num_classes=15,
         in_channels=256,
         stacked_convs=4,
         feat_channels=256,
@@ -88,24 +88,9 @@ train_pipeline = [
     dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels'])
 ]
 
-test_pipeline = [
-    dict(type='LoadImageFromFile'),
-    dict(
-        type='MultiScaleFlipAug',
-        img_scale=[(800, 800)],
-        transforms=[
-            dict(type='RResize'),
-            dict(type='Normalize', **img_norm_cfg),
-            dict(type='Pad', size_divisor=32),
-            dict(type='DefaultFormatBundle'),
-            # dict(type='ImageToTensor', keys=['img']),
-            dict(type='Collect', keys=['img']),
-        ])
-]
-
 data = dict(
     train=dict(pipeline=train_pipeline, version=angle_version),
-    val=dict(pipeline=test_pipeline, version=angle_version),
-    test=dict(pipeline=test_pipeline, version=angle_version))
+    val=dict(version=angle_version),
+    test=dict(version=angle_version))
 
 optimizer = dict(lr=0.005)

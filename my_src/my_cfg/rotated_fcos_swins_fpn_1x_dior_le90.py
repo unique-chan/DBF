@@ -80,6 +80,7 @@ img_norm_cfg = dict(
 train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations', with_bbox=True),
+    dict(type='NoisyBBOX'),  # OUR TRANSFORMATION (⭐)
     dict(type='RResize', img_scale=(800, 800)),
     dict(type='RRandomFlip',
          flip_ratio=[0.25, 0.25, 0.25],
