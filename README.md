@@ -11,9 +11,9 @@
 </p>
 
 <p align="center">
-  <b><a href="https://github.com/unique-chan">Yechan Kim, </a></b>
-  <b><a href="https://github.com/unique-chan">JongHyun Park, and </a></b>
-  <b><a href="https://github.com/unique-chan">Moongu Jeon</a></b>
+  <b>Yechan Kim, </b>
+  <b>JongHyun Park, and </b>
+  <b>Moongu Jeon</b>
 </p>
 
 
