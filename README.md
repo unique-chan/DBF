@@ -1,5 +1,5 @@
 <h1 align="center" style="font-weight: 500; line-height: 1.4;">
-  Dynamic Backbone Freezing 
+  Dynamic Backbone Freezing: Investigating Long-term Training for Remote Sensing Object Detection
 </h1>
 
 <p align="center">
@@ -11,14 +11,17 @@
 </p>
 
 <p align="center">
-  <b>Yechan Kim, </b>
-  <b>JongHyun Park, and </b>
+  <b>JongHyun Park, </b>
+  <b>Yechan Kim, and </b>
   <b>Moongu Jeon</b>
 </p>
 
 
 ### This repo includes:
 - Official implementation of our proposed approach
+
+### Announcement:
+- Sep. 2025: Our paper is accepted to [***Machine Vision and Applications (MVA)***](#)! 🎉
 
 ### Overview:
 - This work presents a training strategy coined `Dynamic Backbone Freezing` that aims to achieve two distinct goals in remote-sensing object detection: **resource-saving** and **robust prediction**.
@@ -79,5 +82,21 @@ python mmdetection/tools/test.py "work_dirs/exp-yechankim/cfg.py" \
   - Here, we assume that "work_dirs/exp-yechankim/cfg.py" is a dumped config file after running `train.py` in the working directory.
   - "work_dirs/exp-yechankim/best_map.pth" is a model weight file after training.
 
-### Announcement:
-- Code under construction.
+### Citation:
+If you use this code for your research, please cite the following paper:
+- For Latex:
+  ~~~ME
+  @article{park2025dbf,
+    title={Investigating Long-term Training for Remote Sensing Object Detection},
+    author={Park, JongHyun and Kim, Yechan and Jeon, Moongu},
+    journal={Machine Vision and Applications},
+    volume={-},
+    year={2025},
+    publisher={Springer}
+  }
+  ~~~
+
+- For Word (MLA Style):
+  ~~~ME
+  JongHyun Park, Yechan Kim*, and Moongu Jeon*, Investigating Long-term Training for Remote Sensing Object Detection, Machine Vision and Applications (MVA), Early Access (2025).
+  ~~~
