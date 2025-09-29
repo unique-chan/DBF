@@ -21,7 +21,7 @@
 - Official implementation of our proposed approach
 
 ### Announcement:
-- Sep. 2025: Our paper is accepted to [***Machine Vision and Applications (MVA)***](#)! 🎉
+- Sep. 2025: Our paper is accepted to [***Machine Vision and Applications (MVA)***](#) 2025! 🎉
 
 ### Overview:
 - This work presents a training strategy coined `Dynamic Backbone Freezing` that aims to achieve two distinct goals in remote-sensing object detection: **resource-saving** and **robust prediction**.
@@ -100,3 +100,4 @@ If you use this code for your research, please cite the following paper:
   ~~~ME
   JongHyun Park, Yechan Kim*, and Moongu Jeon*, Investigating Long-term Training for Remote Sensing Object Detection, Machine Vision and Applications (MVA), Early Access (2025).
   ~~~
+
